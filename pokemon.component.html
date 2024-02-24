@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon GO!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pokemon.component.css">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="heading-container">
+            <h2>Pokédex</h2>
+            <p class="colors-text-primary">Search for any Pokémon that exists on the planet</p>
+        </div>
+        <header class="search-wrapper">
+            <label for="search" class="colors-text-primary">Search by</label>
+            <input type="text" placeholder="Name or Number" class="input-search-name">
+            <label for="type" class="colors-text-primary">Type</label>
+            <select name="Type" class="input-type colors-text-primary bold-text">
+                <option selected disabled hidden>Normal +5 More</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+            </select>
+            <label for="gender" class="colors-text-primary">Gender</label>
+            <select name="Type" class="input-gender colors-text-primary bold-text">
+                <option selected disabled hidden>Male +2 More</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+                <option value="3">Non-Binary</option>
+            </select>
+            <label for="stats" class="colors-text-primary">Stats</label>
+            <select name="Type" class="input-stats colors-text-primary bold-text">
+                <option selected disabled hidden>HP +5 More</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">4</option>
+                <option value="3">5</option>
+            </select>
+            <button class="filter-container">
+                <img src="./Icons/icon_filter.svg" alt="">
+            </button>
+        </header>
+        <main class="pokemon-container">
+        </main>
+    </div>
+    <div class="background-modal hide-Item"></div>
+    <section class="details-wrapper hide-Item">
+        <div class="pokemon-description">
+            <div class="img-container">
+                <img src="" alt=""
+                    class="pokemon-img">
+            </div>
+            <h2 class="pokemon-name-selected"></h2>
+            <p class="pokemon-id-selected"></p>
+            <div class="buttons">
+                <a href="#" class="btn-prev"><img src="./Icons/icon_arrow_left_circle.svg" alt=""></a>
+                <a href="#" class="btn-close"><img src="./Icons/icon_cross_circle.svg" alt=""></a>
+                <a href="#" class="btn-next"><img src="./Icons/icon_arrow_right_circle.svg" alt=""></a>
+            </div>
+            <p class="pokemon-description-selected">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+                placeat assumenda reiciendis dignissimos molestias qui delectus itaque modi totam numquam. A, officia
+                illo voluptatem minima id reiciendis repellat dicta veritatis, dolorum sed labore omnis inventore error
+                explicabo. Repudiandae, numquam minima. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut,
+                provident?</p>
+        </div>
+        <div class="pokemon-attributes">
+        </div>
+        <div class="pokemon-stats">
+            <h2>Stats</h2>
+            <ul>
+            </ul>
+        </div>
+        <div class="pokemon-evolution">
+        </div>
+    </section>
+</body>
+<script type="module" defer src="pokemon.component.js"></script>
+
+</html>

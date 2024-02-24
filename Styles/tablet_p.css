@@ -1,0 +1,11 @@
+@media (max-width: 1010px) {
+  .pokemon-container {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media (max-width: 812px) {
+  .pokemon-container {
+    grid-template-columns: repeat(3, auto);
+  }
+}

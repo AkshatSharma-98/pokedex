@@ -1,0 +1,20 @@
+@import url("./Themes/colors.css");
+
+@import url("./Styles/desktop.css");
+@import url("./Styles/tablet_p.css");
+@import url("./Styles/mobile.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--colors-background-primary);
+  font-family: "Roboto", sans-serif;
+}
+
+.hide-Item {
+  display: none;
+}

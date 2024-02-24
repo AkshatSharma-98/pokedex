@@ -1,0 +1,17 @@
+:root {
+  --colors-background-primary: #deeded;
+  --colors-background-secondary: #c9dde2;
+  --colors-background-tertiary: #2e3156;
+  --colors-background-normal: #b0d2d2;
+  --colors-progress: #93b2b2;
+
+  --colors-text-primary: #5d5f7e;
+}
+
+.colors-text-primary {
+  color: #5d5f7e;
+}
+
+.bold-text {
+  font-weight: bold;
+}

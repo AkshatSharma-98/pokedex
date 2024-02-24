@@ -1,0 +1,22 @@
+{
+    "colors-normal": "#ddcbd0",
+    "colors-fighting": "#fcc1b0",
+    "colors-flying": "#b2d2e8",
+    "colors-poison": "#cfb7ed",
+    "colors-ground": "#f4d1a6",
+    "colors-rock": "#c5aea8",
+    "colors-bug": "#c1e0c8",
+    "colors-ghost": "#d7c2d7",
+    "colors-steel": "#c2d4ce",
+    "colors-fire": "#edc2c4",
+    "colors-water": "#cbd5ed",
+    "colors-grass": "#c0d4c8",
+    "colors-electric": "#e2e2a0",
+    "colors-psychic": "#ddc0cf",
+    "colors-ice": "#c7d7df",
+    "colors-dragon": "#cadcdf",
+    "colors-dark": "#c6c5e3",
+    "colors-fairy": "#e4c0cf",
+    "colors-unknown": "#c0dfdd",
+    "colors-shadow": "#cacaca"
+}
