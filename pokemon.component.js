@@ -12,18 +12,11 @@ class PokemonComponent {
         this.closeBtn = this.descriptionContainer.querySelector('.btn-close');
         this.nextBtn = this.descriptionContainer.querySelector('.btn-next');
         this.prevBtn = this.descriptionContainer.querySelector('.btn-prev');
+        this.loader = document.querySelector('.loader');
         this.colorsMap = {};
 
         this.setRootColorValues();
         this.initializeComponent();
-
-        this.pokemonItems.onreadystatechange = () => {
-            if (document.readyState !== 'complete') {
-                console.log('start');
-            } else {
-                console.log('end');
-            }
-        };
     }
 
     initializeComponent() {
@@ -68,14 +61,14 @@ class PokemonComponent {
         for (let index = 1; index <= 100; index++) {
             let POKEMON_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
             pokemonItems.push(fetch(POKEMON_URL).then(res => {
-                document.querySelector('.loader').classList.remove('hide-Item');
+                this.loader.classList.remove('hide-Item');
                 return res.json();
             }));
         }
 
         Promise.all(pokemonItems)
             .then(results => {
-                document.querySelector('.loader').classList.add('hide-Item');
+                this.loader.classList.add('hide-Item');
                 results.map(result => {
                     let randomNumber = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
                     let compHTML = `
@@ -135,17 +128,16 @@ class PokemonComponent {
 
         const POKEMON_URL = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
         const POKEMOM_GENDER = `https://pokeapi.co/api/v2/gender/?name=${pokemonName}`;
-        const EGG_GROUP = `https://pokeapi.co/api/v2/egg-group/?name=${pokemonName}`;
         const POKEMON_SPECIES = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`;
 
         const request1 = fetch(POKEMON_URL).then(res => res.json());
         const request2 = fetch(POKEMOM_GENDER).then(res => res.json());
         const request3 = fetch(POKEMON_SPECIES).then(res => res.json());
-        document.querySelector('.loader').classList.remove('hide-Item');
+        this.loader.classList.remove('hide-Item');
 
         Promise.all([request1, request2, request3])
             .then(([data1, data2, data3]) => {
-                document.querySelector('.loader').classList.add('hide-Item');
+                this.loader.classList.add('hide-Item');
                 const EVOLUTION_URL = data3.evolution_chain.url;
                 let jsonObj = {
                     name: pokemonName,
