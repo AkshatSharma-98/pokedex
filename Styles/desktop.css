@@ -94,10 +94,8 @@ select {
   width: 180px;
 }
 
-
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
-
 
 .background-modal {
   position: fixed;
@@ -146,7 +144,7 @@ select {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
   align-items: left;
-  margin-top: 150px;
+  margin-top: 500px;
 }
 
 .details-wrapper .buttons {
@@ -178,6 +176,10 @@ select {
   height: 260px;
   grid-row: 1/3;
   grid-column: 1/2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .details-wrapper .pokemon-img {
@@ -233,4 +235,38 @@ select {
   color: white;
   width: 60%;
   height: 20px;
+}
+
+.pokemon-evolution-container {
+  margin-top: 50px;
+}
+
+.pokemon-evolution {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.pokemon-evolution .evolution-item {
+  width: 15vw;
+  padding: 15px;
+  border: 2px solid var(--colors-background-tertiary);
+  background-color: var(--colors-flying);
+  border-radius: 10px;
+  border-style: dotted;
+  text-align: center;
+  font-size: 1vw;
+}
+
+.evolution-item p {
+  font-size: 20px;
+}
+
+.pokemon-evolution .evolution-img {
+  width: 12vw;
+}
+
+.pokemon-evolution .icon-right img {
+  width: 40px;
 }

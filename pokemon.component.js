@@ -7,6 +7,7 @@ class PokemonComponent {
         this.inputPokemon = this.searchWrapper.querySelector('.input-search-name');
         this.pokemonItems = this.compEle.querySelector('.pokemon-container');
         this.descriptionContainer = document.querySelector('.details-wrapper');
+        this.evolutionContainer = document.querySelector('.pokemon-evolution');
         this.modalBg = document.querySelector('.background-modal');
         this.closeBtn = this.descriptionContainer.querySelector('.btn-close');
         this.nextBtn = this.descriptionContainer.querySelector('.btn-next');
@@ -15,6 +16,14 @@ class PokemonComponent {
 
         this.setRootColorValues();
         this.initializeComponent();
+
+        this.pokemonItems.onreadystatechange = () => {
+            if (document.readyState !== 'complete') {
+                console.log('start');
+            } else {
+                console.log('end');
+            }
+        };
     }
 
     initializeComponent() {
@@ -58,18 +67,25 @@ class PokemonComponent {
         const pokemonItems = [];
         for (let index = 1; index <= 100; index++) {
             let POKEMON_URL = `https://pokeapi.co/api/v2/pokemon/${index}`;
-            pokemonItems.push(fetch(POKEMON_URL).then(res => res.json()));
+            pokemonItems.push(fetch(POKEMON_URL).then(res => {
+                document.querySelector('.loader').classList.remove('hide-Item');
+                return res.json();
+            }));
         }
 
         Promise.all(pokemonItems)
             .then(results => {
+                document.querySelector('.loader').classList.add('hide-Item');
                 results.map(result => {
                     let randomNumber = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
                     let compHTML = `
-                    <div class="pokemon-item pokemon_${result.id}" style="background-color: ${this.colorsMap[randomNumber][1]}" data-pokemon-id="${result.id}">
-                        <img src="${result.sprites['front_default']}" alt="${result.name}">
-                        <p class="pokemon-name bold-text">${result.name}</p>
-                        <p class="pokemon-id">${result.id}</p>
+                    <div class="pokemon-item pokemon_${result.id}" 
+                        style="background-color: ${this.colorsMap[randomNumber][1]}" 
+                        data-pokemon-id="${result.id}" 
+                        data-pokemon-name="${result.name}">
+                            <img src="${result.sprites['front_default']}" alt="${result.name}">
+                            <p class="pokemon-name bold-text">${result.name}</p>
+                            <p class="pokemon-id">${result.id}</p>
                     </div>
                 `;
                     this.pokemonItems.innerHTML += compHTML;
@@ -118,15 +134,19 @@ class PokemonComponent {
         const pokemonName = pokemonItem.querySelector('.pokemon-name').innerHTML;
 
         const POKEMON_URL = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
-        const POKEMOM_GENDER = `https://pokeapi.co/api/v2/gender/?id=${pokemonId}`;
-        const EGG_GROUP = `https://pokeapi.co/api/v2/egg-group/?id=${pokemonId}`;
+        const POKEMOM_GENDER = `https://pokeapi.co/api/v2/gender/?name=${pokemonName}`;
+        const EGG_GROUP = `https://pokeapi.co/api/v2/egg-group/?name=${pokemonName}`;
+        const POKEMON_SPECIES = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`;
 
         const request1 = fetch(POKEMON_URL).then(res => res.json());
         const request2 = fetch(POKEMOM_GENDER).then(res => res.json());
-        const request3 = fetch(EGG_GROUP).then(res => res.json());
+        const request3 = fetch(POKEMON_SPECIES).then(res => res.json());
+        document.querySelector('.loader').classList.remove('hide-Item');
 
         Promise.all([request1, request2, request3])
             .then(([data1, data2, data3]) => {
+                document.querySelector('.loader').classList.add('hide-Item');
+                const EVOLUTION_URL = data3.evolution_chain.url;
                 let jsonObj = {
                     name: pokemonName,
                     id: pokemonId,
@@ -136,8 +156,9 @@ class PokemonComponent {
                     abilities: data1.abilities.slice(0, 2),
                     types: data1.types.slice(0, 2),
                     gender: [...data2.results],
-                    eggGroups: data3.results.slice(0, 2),
+                    eggGroups: data3.egg_groups.slice(0, 2),
                     stats: [...data1.stats],
+                    evolutionChain: fetch(EVOLUTION_URL).then(res => res.json())
                 };
                 this.displaySelectedPokemon(jsonObj);
             })
@@ -159,7 +180,7 @@ class PokemonComponent {
         pokemonName.innerHTML = response.name;
         pokemonID.innerHTML = response.id;
 
-        let genderHTML = ``;
+        let genderHTML = '';
         response.gender.forEach(item => {
             genderHTML += item.name + ',';
         });
@@ -229,6 +250,36 @@ class PokemonComponent {
             statsHTML += currHTML;
         });
         pokemonStats.innerHTML = statsHTML;
+
+        response.evolutionChain.then(res => {
+            let evolutionChainObj = [];
+            let chain = res.chain;
+            evolutionChainObj.push(chain.species.name);
+            if (chain.evolves_to[0]) {
+                evolutionChainObj.push(chain.evolves_to[0].species.name);
+                if (chain.evolves_to[0].evolves_to[0]) {
+                    evolutionChainObj.push(chain.evolves_to[0].evolves_to[0].species.name);
+                }
+            }
+
+            let evolHTML = ``;
+            for (let i = 0; i < evolutionChainObj.length; i++) {
+                const currEle = this.pokemonItems.querySelector(`[data-pokemon-name="${evolutionChainObj[i]}"]`);
+                let imgURL = currEle.querySelector('img').src;
+                let currID = currEle.dataset.pokemonId;
+                let evolutionItemHTML = `
+                <div class="evolution-item">
+                    <img class="evolution-img" src="${imgURL}" alt="">
+                    <h2>${evolutionChainObj[i]}</h2>
+                    <p>${currID}</p>
+                </div>
+                `;
+                let iconRightHTML = `<div class="icon-right"><img src="./Icons/icon_arrow_long_right.svg" alt=""></div>`;
+                evolHTML += evolutionItemHTML;
+                evolHTML += (i === evolutionChainObj.length - 1) ? '' : iconRightHTML;
+            }
+            this.evolutionContainer.innerHTML = evolHTML;
+        });
     }
 
     setRootColorValues() {

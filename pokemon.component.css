@@ -16,5 +16,41 @@ body {
 }
 
 .hide-Item {
-  display: none;
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------- */
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--colors-element-primary);
+  top: 0;
+  opacity: 0.9;
+  z-index: 5;
+}
+
+.loader div {
+  width: 130px;
+  height: 130px;
+  border: 25px solid var(--colors-background-tertiary);
+  border-radius: 50%;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  animation: spin 0.3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

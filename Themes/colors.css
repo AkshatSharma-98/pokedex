@@ -6,6 +6,8 @@
   --colors-progress: #93b2b2;
 
   --colors-text-primary: #5d5f7e;
+
+  --colors-element-primary: #000;
 }
 
 .colors-text-primary {

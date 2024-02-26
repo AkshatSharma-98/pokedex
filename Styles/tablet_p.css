@@ -9,3 +9,58 @@
     grid-template-columns: repeat(3, auto);
   }
 }
+
+@media (max-width: 840px) {
+  .details-wrapper {
+    width: 100%;
+  }
+
+  .pokemon-description {
+    /* font-size: 80%; */
+    max-height: 30vw;
+  }
+
+  .pokemon-description-selected {
+    padding: 5px;
+    max-height: 100%;
+    overflow-x: hidden;
+    grid-row: 2/5;
+
+    /* Hiding the scrollbar */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+ 
+ /* Hiding the scrollbar */
+ .pokemon-description-selected::-webkit-scrollbar {
+   display: none; /* Safari and Chrome */
+ }
+
+  .pokemon-description .img-container {
+    width: 24vw;
+    height: 28vw;
+    grid-row: 1/5;
+  }
+  .pokemon-description .img-container img {
+    width: 20vw;
+    height: 20vw;
+  }
+
+  .pokemon-attributes {
+    grid-template-columns: repeat(2, auto);
+    font-size: 80%;
+  }
+}
+
+
+@media (max-width: 620px) {
+
+  .btn-prev, .btn-next {
+    display: none;
+  }
+
+  .pokemon-description .img-container {
+    width: 25vw;
+    height: 32vw;
+  }
+}
